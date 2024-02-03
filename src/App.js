@@ -4,33 +4,20 @@ import TabelaBody from "./components/tabelaBody";
 import TabelaFooter from "./components/tabelaFooter";
 class App extends Component {
   state = {
-    livros: [
-      {
-        id: 9781259872976,
-        titulo: "Engenharia de Software - Uma abordagem Profissional",
-        autor: "Roger S. Pressman",
-        disciplina: "Engengaria de Software",
-      },
-      {
-        id: 9788565837194,
-        titulo: "JavaScript - O guia definitivo",
-        autor: "Flanagan, David",
-        disciplina: "Linguagem de Programação",
-      },
-      {
-        id: 9788563630506,
-        titulo: "Modelagem de Banco de dados",
-        autor: "Paulo Henrique Cayres",
-        disciplina: "Banco de dados",
-      },
-      {
-        id: 9788563630032,
-        titulo: "Fundamentos de Governança de TI",
-        autor: "Edson Roberto Gaseta",
-        disciplina: "Governança",
-      },
-    ],
+    livros: []
   };
+
+  componentDidMount() {
+    fetch("/api/livros.json")
+      .then(response => response.json())
+      .then(livros => this.setState({ livros }))
+      .catch(function (error) {
+        console.log("Erro na requisição");
+      })
+      .finally(function () {
+        console.log("Sempre retorna");
+      });
+  }
 
   render() {
     return (
